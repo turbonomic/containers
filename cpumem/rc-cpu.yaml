@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: cpu-80
+spec:
+  replicas: 1
+  selector:
+    app: cpu-80-x1
+  template:
+    metadata:
+      labels:
+        app: cpu-80-x1
+    spec:
+      nodeSelector:
+        shortname: worker-1
+      containers:
+      - name: cpu-load
+        image: beekman9527/cpumemload:latest
+        resources:
+          requests:
+            cpu: "50m"
+          limits:
+            cpu: "1000m"
+        env:
+        - name: RUN_TYPE
+          value: "cpu"
+        - name: CPU_PERCENT
+          value: "80"
+

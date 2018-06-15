@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-static
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/master: ""
+  containers:
+  - name: memory-10
+    image: beekman9527/cpumemload:latest
+    resources:
+      requests:
+        memory: 0
+      limits:
+        memory: "500Mi"
+    env:
+    - name: RUN_TYPE
+      value: "memory"
+    - name: MEMORY_NUM
+      value: "40"
+
