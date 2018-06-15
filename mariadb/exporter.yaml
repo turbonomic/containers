@@ -1,0 +1,31 @@
+#apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-exporter
+  annotations:
+    deployedby: "songbin"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-exporter-songbin
+  template:
+    metadata:
+      annotations:
+        deployed.by: "songbin"
+      labels:
+        app: mysql-exporter-songbin
+    spec:
+      serviceAccount: default
+      containers:
+      - name: mongodb-exporter
+        image: prom/mysqld-exporter
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9104
+        args:
+        - --log.level=info 
+        env:
+        - name: DATA_SOURCE_NAME
+          value: 'exporter:exporter1@(10.2.3.40:3306)/'
