@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: curl
+spec:
+  replicas: 1
+  selector:
+    app: "curl-pods"
+  template:
+    metadata:
+      labels:
+        app: "curl-pods"
+    spec:
+      serviceAccount: default
+      containers:
+      - name: "sleep"
+        image: beekman9527/curl:latest
+        args:
+          - --v=2
+        resources:
+          limits:
+            cpu: "10m"
+          requests:
+            cpu: "2m"
