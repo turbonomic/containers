@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: sleep-good
+spec:
+  replicas: 2
+  selector:
+    app: "sleep-good-pods"
+  template:
+    metadata:
+      annotations:
+        kubeturbo.io/monitored: "false"
+      labels:
+        app: "sleep-good-pods"
+    spec:
+      containers:
+      - name: "sleep"
+        image: beekman9527/sleep:latest
+        resources:
+          requests:
+            memory: "800Mi"

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: sleep-5min
+spec:
+  replicas: 1
+  selector:
+    app: "sleep-good-pods"
+  template:
+    metadata:
+      labels:
+        app: "sleep-good-pods"
+    spec:
+      containers:
+      - name: "sleep"
+        image: beekman9527/sleep:latest
+        resources:
+          limits:
+            cpu: "10m"
+          requests:
+            cpu: "2m"
