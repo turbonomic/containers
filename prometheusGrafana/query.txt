@@ -1,0 +1,1 @@
+rate(predict_millseconds_sum[5m])/rate(predict_millseconds_count[5m])
